@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"merch-store/internal/models"
+	"merch-store/internal/config"
 	"time"
 )
 
@@ -29,19 +30,7 @@ func (r *repositoryImpl) CreateEmployee(username string) (models.Employee, error
 }
 
 func (r *repositoryImpl) BuyMerch(employeeID int, merchName string, quantity int) error {
-	merchPrices := map[string]int{
-		"t-shirt":    80,
-		"cup":        20,
-		"book":       50,
-		"pen":        10,
-		"powerbank":  200,
-		"hoody":      300,
-		"umbrella":   200,
-		"socks":      10,
-		"wallet":     50,
-		"pink-hoody": 500,
-	}
-	price, ok := merchPrices[merchName]
+	price, ok := config.MerchPrices[merchName]
 	if !ok {
 		return errors.New("invalid merch name")
 	}
