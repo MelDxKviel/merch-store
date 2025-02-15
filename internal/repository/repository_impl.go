@@ -2,7 +2,6 @@ package repository
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"merch-store/internal/models"
 	"merch-store/internal/config"
@@ -32,7 +31,7 @@ func (r *repositoryImpl) CreateEmployee(username string) (models.Employee, error
 func (r *repositoryImpl) BuyMerch(employeeID int, merchName string, quantity int) error {
 	price, ok := config.MerchPrices[merchName]
 	if !ok {
-		return errors.New("invalid merch name")
+		return ErrInvalidMerch
 	}
 	totalCost := price * quantity
 
@@ -48,7 +47,7 @@ func (r *repositoryImpl) BuyMerch(employeeID int, merchName string, quantity int
 		return err
 	}
 	if balance < totalCost {
-		return errors.New("insufficient funds")
+		return ErrInsufficientFunds
 	}
 
 	_, err = tx.Exec(`UPDATE employees SET coin_balance = coin_balance - $1 WHERE id = $2`, totalCost, employeeID)
@@ -80,7 +79,7 @@ func (r *repositoryImpl) TransferCoins(fromID, toID, amount int) error {
 		return err
 	}
 	if fromBalance < amount {
-		return errors.New("insufficient funds")
+		return ErrInsufficientFunds
 	}
 
 	var toBalance int
