@@ -12,7 +12,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
 func TestJWTAuthMiddleware_MissingHeader(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
@@ -32,7 +31,6 @@ func TestJWTAuthMiddleware_MissingHeader(t *testing.T) {
 	_ = json.NewDecoder(w.Body).Decode(&resp)
 	assert.Equal(t, "Authorization header is missing", resp["error"])
 }
-
 
 func TestJWTAuthMiddleware_InvalidHeaderFormat(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -54,7 +52,6 @@ func TestJWTAuthMiddleware_InvalidHeaderFormat(t *testing.T) {
 	assert.Equal(t, "Authorization header format must be Bearer {token}", resp["error"])
 }
 
-
 func TestJWTAuthMiddleware_InvalidToken(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
@@ -74,7 +71,6 @@ func TestJWTAuthMiddleware_InvalidToken(t *testing.T) {
 	_ = json.NewDecoder(w.Body).Decode(&resp)
 	assert.Equal(t, "Invalid token", resp["error"])
 }
-
 
 func TestJWTAuthMiddleware_ValidToken(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -108,7 +104,6 @@ func TestJWTAuthMiddleware_ValidToken(t *testing.T) {
 	assert.True(t, ok)
 	assert.Equal(t, 123, int(idFloat))
 }
-
 
 func TestGenerateJWT(t *testing.T) {
 	secret := "mysecret"

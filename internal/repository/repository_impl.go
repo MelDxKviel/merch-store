@@ -3,8 +3,8 @@ package repository
 import (
 	"database/sql"
 	"fmt"
-	"merch-store/internal/models"
 	"merch-store/internal/config"
+	"merch-store/internal/models"
 	"time"
 )
 

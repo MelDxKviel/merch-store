@@ -1,0 +1,29 @@
+run:
+  tests: true
+  timeout: 5m
+
+linters:
+  enable:
+    - govet         
+    - errcheck      
+    - staticcheck   
+    - gofmt         
+    - golint        
+    - gosec         
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  exclude-use-default: false
+
+linters-settings:
+  govet:
+    shadow: true
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  gofmt:
+    simplify: true
+  gosec:
+    severity: medium
+
